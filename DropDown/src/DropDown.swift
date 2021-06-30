@@ -1,6 +1,6 @@
 //
-//  DropDown.swift
-//  DropDown
+//  MaterialDropDown.swift
+//  MaterialDropDown
 //
 //  Created by Kevin Hirsch on 28/07/15.
 //  Copyright (c) 2015 Kevin Hirsch. All rights reserved.
@@ -43,7 +43,7 @@ extension UIBarButtonItem: AnchorView {
 }
 
 /// A Material Design drop down in replacement for `UIPickerView`.
-public final class DropDown: UIView {
+public final class MaterialDropDown: UIView {
 
 	//TODO: handle iOS 7 landscape mode
 
@@ -78,7 +78,7 @@ public final class DropDown: UIView {
 	//MARK: - Properties
 
 	/// The current visible drop down. There can be only one visible drop down at a time.
-	public static weak var VisibleDropDown: DropDown?
+	public static weak var VisibleDropDown: MaterialDropDown?
 
 	//MARK: UI
 	fileprivate let dismissableView = UIView()
@@ -311,12 +311,12 @@ public final class DropDown: UIView {
 	/**
 	The option of the show animation. Only change the caller. To change all drop down's use the static var.
 	*/
-	public var animationEntranceOptions: UIView.AnimationOptions = DropDown.animationEntranceOptions
+	public var animationEntranceOptions: UIView.AnimationOptions = MaterialDropDown.animationEntranceOptions
 	
 	/**
 	The option of the hide animation. Only change the caller. To change all drop down's use the static var.
 	*/
-	public var animationExitOptions: UIView.AnimationOptions = DropDown.animationExitOptions
+	public var animationExitOptions: UIView.AnimationOptions = MaterialDropDown.animationExitOptions
 
 	/**
 	The downScale transformation of the tableview when the DropDown is appearing
@@ -512,7 +512,7 @@ public final class DropDown: UIView {
 
 //MARK: - Setup
 
-private extension DropDown {
+private extension MaterialDropDown {
 
 	func setup() {
 		tableView.register(cellNib, forCellReuseIdentifier: DPDConstant.ReusableIdentifier.DropDownCell)
@@ -557,7 +557,7 @@ private extension DropDown {
 
 //MARK: - UI
 
-extension DropDown {
+extension MaterialDropDown {
 
 	public override func updateConstraints() {
 		if !didSetupConstraints {
@@ -810,7 +810,7 @@ extension DropDown {
 
 //MARK: - Actions
 
-extension DropDown {
+extension MaterialDropDown {
     
     /**
      An Objective-C alias for the show() method which converts the returned tuple into an NSDictionary.
@@ -837,17 +837,17 @@ extension DropDown {
 	*/
 	@discardableResult
     public func show(onTopOf window: UIWindow? = nil, beforeTransform transform: CGAffineTransform? = nil, anchorPoint: CGPoint? = nil) -> (canBeDisplayed: Bool, offscreenHeight: CGFloat?) {
-		if self == DropDown.VisibleDropDown && DropDown.VisibleDropDown?.isHidden == false { // added condition - DropDown.VisibleDropDown?.isHidden == false -> to resolve forever hiding dropdown issue when continuous taping on button - Kartik Patel - 2016-12-29
+		if self == MaterialDropDown.VisibleDropDown && MaterialDropDown.VisibleDropDown?.isHidden == false { // added condition - DropDown.VisibleDropDown?.isHidden == false -> to resolve forever hiding dropdown issue when continuous taping on button - Kartik Patel - 2016-12-29
 			return (true, 0)
 		}
 
-		if let visibleDropDown = DropDown.VisibleDropDown {
+		if let visibleDropDown = MaterialDropDown.VisibleDropDown {
 			visibleDropDown.cancel()
 		}
 
 		willShowAction?()
 
-		DropDown.VisibleDropDown = self
+		MaterialDropDown.VisibleDropDown = self
 
 		setNeedsUpdateConstraints()
 
@@ -909,13 +909,13 @@ extension DropDown {
 
 	/// Hides the drop down.
 	public func hide() {
-		if self == DropDown.VisibleDropDown {
+		if self == MaterialDropDown.VisibleDropDown {
 			/*
 			If one drop down is showed and another one is not
 			but we call `hide()` on the hidden one:
 			we don't want it to set the `VisibleDropDown` to nil.
 			*/
-			DropDown.VisibleDropDown = nil
+			MaterialDropDown.VisibleDropDown = nil
 		}
 
 		if isHidden {
@@ -956,7 +956,7 @@ extension DropDown {
 
 //MARK: - UITableView
 
-extension DropDown {
+extension MaterialDropDown {
 
 	/**
 	Reloads all the cells.
@@ -1053,7 +1053,7 @@ extension DropDown {
 
 //MARK: - UITableViewDataSource - UITableViewDelegate
 
-extension DropDown: UITableViewDataSource, UITableViewDelegate {
+extension MaterialDropDown: UITableViewDataSource, UITableViewDelegate {
 
 	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return dataSource.count
@@ -1138,7 +1138,7 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 
 //MARK: - Auto dismiss
 
-extension DropDown {
+extension MaterialDropDown {
 
 	public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 		let view = super.hitTest(point, with: event)
@@ -1160,7 +1160,7 @@ extension DropDown {
 
 //MARK: - Keyboard events
 
-extension DropDown {
+extension MaterialDropDown {
 
 	/**
 	Starts listening to keyboard events.

@@ -1,6 +1,6 @@
 //
-//  DropDown+Appearance.swift
-//  DropDown
+//  MaterialDropDown+Appearance.swift
+//  MaterialDropDown
 //
 //  Created by Kevin Hirsch on 13/06/16.
 //  Copyright © 2016 Kevin Hirsch. All rights reserved.
@@ -10,10 +10,10 @@
 
 import UIKit
 
-extension DropDown {
+extension MaterialDropDown {
 
 	public class func setupDefaultAppearance() {
-		let appearance = DropDown.appearance()
+		let appearance = MaterialDropDown.appearance()
 
 		appearance.cellHeight = DPDConstant.UI.RowHeight
 		appearance.backgroundColor = DPDConstant.UI.BackgroundColor
